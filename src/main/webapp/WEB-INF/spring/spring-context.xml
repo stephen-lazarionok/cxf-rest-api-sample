@@ -1,0 +1,34 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://cxf.apache.org/jaxrs
+            http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <!-- TODO: set up environment specific properties -->
+
+    <!-- import cxf webservices -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <context:annotation-config/>
+    <!-- All the implementations of services, repositories, etc should be in these two packages -->
+    <context:component-scan base-package="com.sla.sampleapp.domain.services"/>
+    <context:component-scan base-package="com.sla.sampleapp.infrastructure"/>
+
+    <!-- JAX-RS -->
+    <jaxrs:server id="rest-api" address="/v1">
+        <jaxrs:serviceBeans>
+            <!-- List of REST services -->
+            <bean class="com.sla.sampleapp.application.rest.SampleAppAPI"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <!-- Jackson implementation for json provider to serialize objects as JSONs -->
+            <bean id="jacksonJsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</beans>
