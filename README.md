@@ -4,5 +4,6 @@ A template for creating REST API using Apache CXF
 # How to launch
 
 - mvn clean tomcat7:run
-- localhost:8080/sample-app/api/v1
+- localhost:8080/sample-app/api/v1/ping
+- localhost:8080/sample-app/api/v1/asyncping
 

@@ -20,11 +20,20 @@
     <context:component-scan base-package="com.sla.sampleapp.domain.services"/>
     <context:component-scan base-package="com.sla.sampleapp.infrastructure"/>
 
+    <bean id="taskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="50"/>
+        <property name="maxPoolSize" value="200"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
+
     <!-- JAX-RS -->
     <jaxrs:server id="rest-api" address="/v1">
         <jaxrs:serviceBeans>
             <!-- List of REST services -->
-            <bean class="com.sla.sampleapp.application.rest.SampleAppAPI"/>
+            <bean class="com.sla.sampleapp.application.rest.SampleAppAPI">
+                <property name="taskExecutor" ref="taskExecutor"/>
+            </bean>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <!-- Jackson implementation for json provider to serialize objects as JSONs -->
