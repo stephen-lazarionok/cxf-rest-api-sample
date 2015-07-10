@@ -12,6 +12,9 @@
     <properties>
         <spring.version>4.1.4.RELEASE</spring.version>
         <cxf.version>3.0.3</cxf.version>
+        <gatling.version>2.1.6</gatling.version>
+        <gatling-plugin.version>2.1.6</gatling-plugin.version>
+        <scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>
     </properties>
 
     <build>
@@ -31,6 +34,25 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>${gatling-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -96,6 +118,13 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- End of Spring dependencies -->
+
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <version>${gatling.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
